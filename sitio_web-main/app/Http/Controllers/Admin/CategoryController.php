@@ -57,12 +57,17 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nombre' => 'required|string|max:255|unique:categories',
-            'descripcion' => 'nullable|string|max:1000',
+            'nombre' => 'required|string|min:3|max:255|unique:categories',
+            'descripcion' => 'nullable|string|min:5|max:1000',
             'imagen' => 'nullable|image|max:2048',
         ], [
             'nombre.required' => 'El nombre es obligatorio',
+            'nombre.min' => 'El nombre debe tener al menos 3 caracteres',
             'nombre.unique' => 'Esta categoría ya existe',
+            'descripcion.min' => 'La descripción debe tener al menos 5 caracteres',
+            'descripcion.max' => 'La descripción no puede exceder 1000 caracteres',
+            'imagen.image' => 'El archivo debe ser una imagen válida',
+            'imagen.max' => 'La imagen no puede ser mayor a 2MB',
         ]);
 
         if ($request->hasFile('imagen')) {
@@ -88,9 +93,17 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $validated = $request->validate([
-            'nombre' => 'required|string|max:255|unique:categories,nombre,' . $category->id,
-            'descripcion' => 'nullable|string|max:1000',
+            'nombre' => 'required|string|min:3|max:255|unique:categories,nombre,' . $category->id,
+            'descripcion' => 'nullable|string|min:5|max:1000',
             'imagen' => 'nullable|image|max:2048',
+        ], [
+            'nombre.required' => 'El nombre es obligatorio',
+            'nombre.min' => 'El nombre debe tener al menos 3 caracteres',
+            'nombre.unique' => 'Esta categoría ya existe',
+            'descripcion.min' => 'La descripción debe tener al menos 5 caracteres',
+            'descripcion.max' => 'La descripción no puede exceder 1000 caracteres',
+            'imagen.image' => 'El archivo debe ser una imagen válida',
+            'imagen.max' => 'La imagen no puede ser mayor a 2MB',
         ]);
 
         if ($request->hasFile('imagen')) {

@@ -21,11 +21,28 @@ class AdminController extends Controller
         $totalCategories = Category::count();
         $lowStockProducts = Product::where('stock', '<=', self::LOW_STOCK_THRESHOLD)->count();
         
+        // Productos sin stock
+        $outOfStockProducts = Product::where('stock', '<=', 0)->count();
+        
+        // Últimos productos creados
+        $recentProducts = Product::with('category')
+            ->latest()
+            ->limit(5)
+            ->get();
+        
+        // Categorías con conteo de productos
+        $categories = Category::withCount('products')
+            ->limit(5)
+            ->get();
+        
         return view('admin.index', compact(
             'totalUsers',
             'totalProducts',
             'totalCategories',
-            'lowStockProducts'
+            'lowStockProducts',
+            'outOfStockProducts',
+            'recentProducts',
+            'categories'
         ));
     }
 

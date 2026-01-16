@@ -100,9 +100,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php
-                                $recentProducts = \App\Models\Product::orderBy('created_at', 'desc')->limit(5)->get();
-                            @endphp
                             @forelse($recentProducts as $product)
                                 <tr>
                                     <td>{{ $product->nombre }}</td>
@@ -145,9 +142,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php
-                                $categories = \App\Models\Category::withCount('products')->limit(5)->get();
-                            @endphp
                             @forelse($categories as $category)
                                 <tr>
                                     <td>{{ $category->nombre }}</td>

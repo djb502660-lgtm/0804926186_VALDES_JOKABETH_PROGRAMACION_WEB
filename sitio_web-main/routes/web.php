@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     // --- Módulo 2: Productos (Carpeta: Products) ---
     Route::get('/productos/exportar', [ProductController::class, 'export'])->name('products.export');
     Route::get('/productos/imprimir', [ProductController::class, 'print'])->name('products.print');
+    Route::get('/productos/bajo-stock', [ProductController::class, 'lowStockAlert'])->name('products.low-stock');
     Route::resource('productos', ProductController::class)
         ->names('products')
         ->parameters(['productos' => 'product']);

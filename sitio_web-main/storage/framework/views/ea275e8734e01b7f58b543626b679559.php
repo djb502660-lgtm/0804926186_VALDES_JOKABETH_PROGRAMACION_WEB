@@ -166,33 +166,47 @@
         </div>
 
         <div class="login-body">
-            @if ($errors->any())
+            <?php if($errors->any()): ?>
                 <div class="alert">
                     <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
-            @endif
+            <?php endif; ?>
 
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
+            <form method="POST" action="<?php echo e(route('login')); ?>">
+                <?php echo csrf_field(); ?>
 
                 <div class="form-group">
                     <label for="email">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus placeholder="ejemplo@email.com">
-                    @error('email')
-                        <span style="color: #dc2626; font-size: 12px; margin-top: 4px; display: block;">{{ $message }}</span>
-                    @enderror
+                    <input type="email" id="email" name="email" value="<?php echo e(old('email')); ?>" required autofocus placeholder="ejemplo@email.com">
+                    <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <span style="color: #dc2626; font-size: 12px; margin-top: 4px; display: block;"><?php echo e($message); ?></span>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Contraseña</label>
                     <input type="password" id="password" name="password" required placeholder="••••••••">
-                    @error('password')
-                        <span style="color: #dc2626; font-size: 12px; margin-top: 4px; display: block;">{{ $message }}</span>
-                    @enderror
+                    <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <span style="color: #dc2626; font-size: 12px; margin-top: 4px; display: block;"><?php echo e($message); ?></span>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
 
                 <div class="form-group">
@@ -207,8 +221,9 @@
         </div>
 
         <div class="login-footer">
-            ¿No tienes cuenta? <a href="{{ route('register') }}">Regístrate</a>
+            ¿No tienes cuenta? <a href="<?php echo e(route('register')); ?>">Regístrate</a>
         </div>
     </div>
 </body>
 </html>
+<?php /**PATH C:\laragon\www\0804926186_VALDES_JOKABETH_PROGRAMACION_WEB\sitio_web-main\resources\views/auth/login.blade.php ENDPATH**/ ?>
